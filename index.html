@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviator</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+<div id="wrapper">
+
+    <div id="last-counters">
+        <div id="counter-item"></div>
+    </div>
+    <div id="mid-wrapper">
+        <div id="header">
+            <div id="balance">BALANCE: </div>
+            <div id="balance-amount">
+                <div style="position: absolute; top: 5px; right: 10px; font-size: 19px; color: #ffffff;">€</div>
+            </div>
+        </div>
+
+        <div id="counterWrapper">
+            <canvas id="canvas"></canvas>
+            <div id="counter">1.00</div>
+        </div>
+
+        <div id="bottom-wrapper">
+            <div id="input-wrapper">
+                <input type="number" id="bet-input" min="0" max="100" pattern="[0-9]{2}" />
+                <div style="position: absolute; top: 10px; right: 10px; font-size: 19px; color: #ffffff;">€</div>
+            </div>
+            <button id="bet-button">BET</button>
+        </div>
+        <div id="message-button">
+            <p id="message"></p>
+        </div>
+    </div>
+</div>
+
+<script src="./script.js"></script>
+</body>
+
+</html>

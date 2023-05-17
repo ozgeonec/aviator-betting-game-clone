@@ -1,0 +1,257 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    font-family: 'Exo 2', sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#header {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    max-width: 500px;
+    align-items: end;
+}
+
+#last-counters {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #ffffff;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+#last-counters p {
+    padding: 2px 11px;
+    border-radius: 11px;
+    border: 1px solid rgb(145, 62, 248);
+    color: rgb(145, 62, 248);
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 5px;
+}
+
+
+#mid-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: center;
+}
+
+#balance {
+    text-transform: uppercase;
+    color: #30fcbe;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 30px;
+}
+
+#balance-amount {
+    position: relative;
+    font-weight: 600;
+    width: 100px;
+    border: 2px solid #30fcbe;
+    font-size: 16px;
+    border-radius: 24px;
+    background: transparent;
+    color: #fff;
+    text-transform: uppercase;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+#counterWrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    max-width: 500px;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 0 1px;
+    border-radius: 20px;
+}
+
+
+#counterWrapper:before {
+    content: '';
+    background-image: url('img/aviator.spribe.background copy.jpeg');
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    width: 300%;
+    height: 400%;
+    /* top: -50%; */
+    /* left: -150%; */
+    /* transform: rotate(45deg); */
+
+
+    /*
+    -webkit-animation-name: rotation;
+    -webkit-animation-duration:6s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:linear;
+    -moz-animation-name: rotate;
+    -moz-animation-duration:2s;
+    -moz-animation-iteration-count:infinite;
+    -moz-animation-timing-function:linear; */
+    animation: rotation 8s infinite linear;
+
+
+    /* -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%; */
+
+    /* transform-origin: center center;
+
+    transform: translate(-50%, -50%); */
+    -webkit-transform: translate(-50%, -50%) rotate(45deg);
+}
+
+@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes rotation {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#canvas {
+    width: 100%;
+    /* width: 500px; */
+    max-width: 500px;
+    height: 250px;
+    border: 1px solid #2a2b2e;
+    border-radius: 20px;
+    margin: 0 auto;
+    z-index: 6;
+}
+
+#bg-Image {
+    width: 100%;
+    background: center no-repeat;
+}
+
+#counter {
+    position: absolute;
+    top: 10%;
+    left: 46%;
+    font-size: 42px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: white;
+    z-index: 999;
+}
+
+#bottom-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0;
+    max-width: 500px;
+}
+
+#input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+#bet-input {
+    position: relative;
+    width: 100%;
+    padding: 9px 0 9px 10px;
+    border: 3px solid #fff;
+    border-radius: 24px;
+    background: transparent;
+    font-weight: 900;
+    font-size: 17px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+#bet-button {
+    position: relative;
+    width: 100%;
+    padding: 12px 30px;
+    border-width: 0;
+    border-radius: 24px;
+    background-color: #fb024c;
+    cursor: pointer;
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 17px;
+    text-transform: uppercase;
+    margin-left: 30px;
+}
+
+#wrapper {
+    position: relative;
+
+}
+
+#message {
+    color: #fb024c;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#message-button {
+    display: flex;
+    flex-direction: column;
+}
