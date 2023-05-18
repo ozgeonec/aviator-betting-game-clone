@@ -6,7 +6,7 @@ const ctx = canvas.getContext('2d');
 let speedX = 3;
 let speedY = 1;
 
-// Set the size of the canvas to match the window size
+// Set the size of the canvas
 canvas.width = 800;
 canvas.height = 250;
 
@@ -16,14 +16,6 @@ canvas.height = 250;
 
 let x = 0;
 let y = canvas.height;
-
-
-const bgImage = new Image();
-bgImage.src = './img/aviator.spribe.background.jpeg';
-bgImage.onload = function () {
-    ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
-};
-
 
 // Start the animation
 let animationId = requestAnimationFrame(draw);
@@ -41,6 +33,9 @@ let isFlying = true;
 // Load the image
 const image = new Image();
 image.src = './img/aviator_jogo.png';
+image.style.minWidth = '100%';
+image.style.width = '100%';
+
 
 let balanceAmount = document.getElementById('balance-amount');
 let calculatedBalanceAmount = 3000;
@@ -50,11 +45,28 @@ betButton.textContent = 'Bet';
 
 //Previous Counters
 let lastCounters = document.getElementById('last-counters');
+let counterItem = lastCounters.getElementsByTagName('p');
+let classNameForCounter = '';
+
 
 function updateCounterDepo() {
-    lastCounters.innerHTML = counterDepo.map(i => `<p>${i}</p>`).join('');
-}
 
+    lastCounters.innerHTML = counterDepo.map(function (i) {
+
+            if ((i < 2.00)) {
+                classNameForCounter = 'blueBorder';
+
+            } else if ((i >= 2) && (i < 10)) {
+
+                classNameForCounter = 'purpleBorder';
+            } else classNameForCounter = 'burgundyBorder';
+
+            return '<p' + ' class=' + classNameForCounter + '>' + i + '</p>'
+        }
+        // `<p style=`{classVar}`>${i}</p>`
+
+    ).join('');
+}
 
 //Hide letter E from input
 let inputBox = document.getElementById("bet-input");
@@ -69,10 +81,9 @@ inputBox.addEventListener("keydown", function (e) {
 
 
 let messageField = document.getElementById('message');
-messageField.textContent = 'Place your bet';
+messageField.textContent = 'Wait for the next round';
 
-// Define the rotation angle
-let rotationAngle = 0;
+
 //Animation
 function draw() {
     //Counter
@@ -100,12 +111,12 @@ function draw() {
     // Check if it's time to stop the animation
     if (counter >= randomStop) {
 
+        messageField.textContent = 'Place your bet';
+
         // Stop the animation
         cancelAnimationFrame(animationId);
 
-        counterDepo.push(counter.toFixed(2));
-        counterDepo = counterDepo.reverse();
-
+        counterDepo.unshift(counter.toFixed(2));
 
         // Wait for 8 seconds and then start a new animation
         setTimeout(() => {
@@ -146,9 +157,6 @@ function draw() {
     ctx.translate(canvasOffsetX, canvasOffsetY);
 
 
-    // Update the rotation angle
-    rotationAngle += 0.01;
-
     // Draw the dot's path
     for (let i = 1; i < dotPath.length; i++) {
         ctx.beginPath();
@@ -165,17 +173,8 @@ function draw() {
     ctx.arc(x, y, 1, 0, 2 * Math.PI);
     ctx.fill();
 
-    //give shake effect to the plane image
-    let shakeOffsetX = 0;
-    let shakeOffsetY = 0;
-    let shakeMagnitude = 3;
-
-    shakeOffsetX = Math.random() * shakeMagnitude - shakeMagnitude / 2;
-    shakeOffsetY = Math.random() * shakeMagnitude - shakeMagnitude / 2;
-
-
     // Draw the image on top of the dot
-    ctx.drawImage(image, x - 28 + shakeOffsetX, y - 78 + shakeOffsetX, 185, 85);
+    ctx.drawImage(image, x - 28, y - 78, 185, 85);
 
     // Restore the transformation matrix to its original state
     ctx.restore();
@@ -194,6 +193,9 @@ betButton.addEventListener('click', () => {
     } else {
         placeBet();
     }
+    if (!placedBet && !isFlying) {
+        messageField.textContent = 'Place your bet';
+    }
 
 });
 
@@ -203,6 +205,7 @@ function placeBet() {
 
     if (placedBet || inputBox.value === 0 || isNaN(inputBox.value) || isFlying || inputBox.value > calculatedBalanceAmount) {
         // user has already placed bet or has not placed a bet
+        messageField.textContent = 'Wait for the next round';
         return;
     }
 
@@ -218,7 +221,10 @@ function placeBet() {
             messageField.textContent = 'Insufficient balance to place bet';
         }
     } else {
-        messageField.textContent = 'Wait for the next round';
+        if (isFlying) {
+            messageField.textContent = 'Wait for the next round';
+        }
+
     }
 }
 
@@ -227,6 +233,7 @@ function cashOut() {
 
     if (cashedOut || (inputBox.value === 0)) {
         // user has already cashed out or has not placed a bet
+        messageField.textContent = 'Wait for the next round';
         return;
     }
 

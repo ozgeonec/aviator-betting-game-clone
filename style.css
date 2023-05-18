@@ -6,6 +6,7 @@ body {
     font-family: 'Exo 2', sans-serif;
     box-sizing: border-box;
     width: 100%;
+    overflow: hidden;
 }
 
 input::-webkit-outer-spin-button,
@@ -23,14 +24,16 @@ input[type=number] {
     width: 100%;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 #header {
     display: flex;
     width: 100%;
-    flex-direction: column;
+    flex-direction: row;
     max-width: 500px;
     align-items: end;
+    overflow: hidden;
 }
 
 #last-counters {
@@ -40,27 +43,43 @@ input[type=number] {
     align-items: center;
     color: #ffffff;
     overflow: hidden;
-    margin-top: 20px;
+    margin: 0 6px 20px 0;
 }
 
 #last-counters p {
     padding: 2px 11px;
     border-radius: 11px;
-    border: 1px solid rgb(145, 62, 248);
-    color: rgb(145, 62, 248);
+    border-width: 1px;
+    border-style: solid;
     font-size: 16px;
     font-weight: 500;
     margin: 0 5px;
 }
 
+.blueBorder {
+    color: rgb(52, 180, 255);
+    border-color: rgb(52, 180, 255);
+}
+
+.purpleBorder {
+    color: rgb(145, 62, 248);
+    border-color: rgb(145, 62, 248);
+}
+
+.burgundyBorder {
+    color: rgb(192, 23, 180);
+    border-color: rgb(192, 23, 180);
+
+}
 
 #mid-wrapper {
     position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin: 20px 20px 0 20px;
     align-items: center;
+    overflow: hidden;
 }
 
 #balance {
@@ -68,13 +87,13 @@ input[type=number] {
     color: #30fcbe;
     font-size: 14px;
     font-weight: 600;
-    margin-right: 30px;
+    margin-right: 15px;
 }
 
 #balance-amount {
     position: relative;
     font-weight: 600;
-    width: 100px;
+    width: 90px;
     border: 2px solid #30fcbe;
     font-size: 16px;
     border-radius: 24px;
@@ -95,8 +114,6 @@ input[type=number] {
     display: flex;
     align-items: center;
     justify-content: center;
-
-
     max-width: 500px;
     overflow: hidden;
     margin: 0 auto;
@@ -104,41 +121,30 @@ input[type=number] {
     border-radius: 20px;
 }
 
-
-#counterWrapper:before {
-    content: '';
-    background-image: url('img/aviator.spribe.background copy.jpeg');
-    background-size: cover;
-    background-position: center;
+#bg-image {
     position: absolute;
     width: 300%;
-    height: 400%;
-    /* top: -50%; */
-    /* left: -150%; */
-    /* transform: rotate(45deg); */
+    height: 450%;
+    overflow: hidden;
+    top: 100%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+}
 
-
-    /*
-    -webkit-animation-name: rotation;
-    -webkit-animation-duration:6s;
-    -webkit-animation-iteration-count:infinite;
-    -webkit-animation-timing-function:linear;
-    -moz-animation-name: rotate;
-    -moz-animation-duration:2s;
-    -moz-animation-iteration-count:infinite;
-    -moz-animation-timing-function:linear; */
+#counterWrapper #bg-image::before {
+    content: '';
+    background-image: url('img/aviator-re-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    top: 0;
+    left: 0;
     animation: rotation 8s infinite linear;
-
-
-    /* -webkit-transform-origin: 50% 50%;
-    -moz-transform-origin: 50% 50%;
-    -o-transform-origin: 50% 50%;
-    transform-origin: 50% 50%; */
-
-    /* transform-origin: center center;
-
-    transform: translate(-50%, -50%); */
-    -webkit-transform: translate(-50%, -50%) rotate(45deg);
+    transform-origin: 50% 50%;
 }
 
 @-webkit-keyframes rotation {
@@ -173,24 +179,19 @@ input[type=number] {
 
 #canvas {
     width: 100%;
-    /* width: 500px; */
     max-width: 500px;
     height: 250px;
     border: 1px solid #2a2b2e;
     border-radius: 20px;
     margin: 0 auto;
     z-index: 6;
-}
-
-#bg-Image {
-    width: 100%;
-    background: center no-repeat;
+    overflow: hidden;
 }
 
 #counter {
     position: absolute;
     top: 10%;
-    left: 46%;
+    left: 42%;
     font-size: 42px;
     font-family: Arial, sans-serif;
     font-weight: bold;
@@ -238,11 +239,6 @@ input[type=number] {
     font-size: 17px;
     text-transform: uppercase;
     margin-left: 30px;
-}
-
-#wrapper {
-    position: relative;
-
 }
 
 #message {
