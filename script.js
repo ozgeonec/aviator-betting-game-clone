@@ -1,4 +1,4 @@
-//Create Canvas
+// Create Canvas
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -11,9 +11,6 @@ canvas.width = 800;
 canvas.height = 250;
 
 // Set the starting position of the dot
-// let x = canvas.width / 2;
-// let y = canvas.height / 2;
-
 let x = 0;
 let y = canvas.height;
 
@@ -23,19 +20,27 @@ let animationId = requestAnimationFrame(draw);
 let dotPath = [];
 let counter = 1.0;
 let multiplier = 0;
-let counterDepo = [1.01, 18.45, 2.02, 5.21, 1.22, 1.25, 2.03, 4.55, 65.11, 1.03, 1.10, 3.01, 8.85, 6.95, 11.01, 2.07, 4.05, 1.51, 1.02, 1.95, 1.05, 3.99, 2.89, 4.09, 11.20, 2.55];
+let counterDepo = [
+  1.34, 60.43, 3.54, 1.00, 2.56, 10.54, 5.67, 7.89, 12.34, 8.98,
+  6.41, 4.25, 11.17, 9.56, 13.23, 15.67, 18.34, 20.23, 3.76, 7.01,
+  12.89, 14.37, 10.42, 6.18, 17.62, 8.35, 3.67, 2.45, 6.99, 4.88,
+  16.56, 9.71, 13.44, 19.13, 2.59, 11.22, 5.31, 8.74, 9.81, 14.56,
+  20.44, 15.93, 10.77, 6.11, 7.19, 8.02, 4.69, 12.01, 17.22, 11.50,
+  3.28, 5.99, 16.78, 10.89, 9.44, 2.67, 7.52, 14.88, 18.72, 5.03,
+  6.49, 7.88, 19.34, 4.37, 3.92, 13.12, 10.25, 11.74, 8.95, 12.78,
+  16.12, 2.83, 15.89, 17.11, 6.23, 4.95, 14.25, 19.22, 7.67, 8.57,
+  5.84, 16.33, 13.55, 3.42, 10.90, 9.67, 7.13, 15.71, 18.99, 2.18
+];
 let randomStop = Math.random() * (10 - 0.1) + 0.8;
 let cashedOut = false; // flag to indicate if the user has cashed out
 let placedBet = false;
 let isFlying = true;
-
 
 // Load the image
 const image = new Image();
 image.src = './img/aviator_jogo.png';
 image.style.minWidth = '100%';
 image.style.width = '100%';
-
 
 let balanceAmount = document.getElementById('balance-amount');
 let calculatedBalanceAmount = 3000;
@@ -50,25 +55,18 @@ let classNameForCounter = '';
 
 
 function updateCounterDepo() {
-
     lastCounters.innerHTML = counterDepo.map(function (i) {
+        if ((i < 2.00)) {
+            classNameForCounter = 'blueBorder';
+        } else if ((i >= 2) && (i < 10)) {
+            classNameForCounter = 'purpleBorder';
+        } else classNameForCounter = 'burgundyBorder';
 
-            if ((i < 2.00)) {
-                classNameForCounter = 'blueBorder';
-
-            } else if ((i >= 2) && (i < 10)) {
-
-                classNameForCounter = 'purpleBorder';
-            } else classNameForCounter = 'burgundyBorder';
-
-            return '<p' + ' class=' + classNameForCounter + '>' + i + '</p>'
-        }
-        // `<p style=`{classVar}`>${i}</p>`
-
-    ).join('');
+        return '<p' + ' class=' + classNameForCounter + '>' + i + '</p>';
+    }).join('');
 }
 
-//Hide letter E from input
+// Hide letter E from input
 let inputBox = document.getElementById("bet-input");
 
 let invalidChars = ["-", "+", "e",];
@@ -79,14 +77,12 @@ inputBox.addEventListener("keydown", function (e) {
     }
 });
 
-
 let messageField = document.getElementById('message');
 messageField.textContent = 'Wait for the next round';
 
-
-//Animation
+// Animation
 function draw() {
-    //Counter
+    // Counter
     counter += 0.001;
     document.getElementById('counter').textContent = counter.toFixed(2) + 'x';
 
@@ -110,7 +106,6 @@ function draw() {
 
     // Check if it's time to stop the animation
     if (counter >= randomStop) {
-
         messageField.textContent = 'Place your bet';
 
         // Stop the animation
@@ -120,8 +115,6 @@ function draw() {
 
         // Wait for 8 seconds and then start a new animation
         setTimeout(() => {
-
-            // Generate a new randomStop value and reset the counter to 1
             randomStop = Math.random() * (10 - 0.1) + 0.8;
             counter = 1.0;
             x = canvas.width / 2;
@@ -137,7 +130,6 @@ function draw() {
 
             // Start the animation again
             animationId = requestAnimationFrame(draw);
-
         }, 8000);
 
         return;
@@ -155,7 +147,6 @@ function draw() {
 
     // Translate the canvas based on the dot's position
     ctx.translate(canvasOffsetX, canvasOffsetY);
-
 
     // Draw the dot's path
     for (let i = 1; i < dotPath.length; i++) {
@@ -187,7 +178,6 @@ function draw() {
 draw();
 
 betButton.addEventListener('click', () => {
-
     if (placedBet) {
         cashOut();
     } else {
@@ -196,21 +186,16 @@ betButton.addEventListener('click', () => {
     if (!placedBet && !isFlying) {
         messageField.textContent = 'Place your bet';
     }
-
 });
-
 
 // Function to place a bet
 function placeBet() {
-
     if (placedBet || inputBox.value === 0 || isNaN(inputBox.value) || isFlying || inputBox.value > calculatedBalanceAmount) {
-        // user has already placed bet or has not placed a bet
         messageField.textContent = 'Wait for the next round';
         return;
     }
 
     if ((counter >= randomStop) && !isFlying && (inputBox.value <= calculatedBalanceAmount)) {
-        // Only allow betting if animation is not running
         if (inputBox.value && (inputBox.value <= calculatedBalanceAmount)) {
             calculatedBalanceAmount -= inputBox.value;
             balanceAmount.textContent = calculatedBalanceAmount.toFixed(2).toString() + '€';
@@ -224,25 +209,22 @@ function placeBet() {
         if (isFlying) {
             messageField.textContent = 'Wait for the next round';
         }
-
     }
 }
 
 // Function to cash out bet
 function cashOut() {
-
     if (cashedOut || (inputBox.value === 0)) {
-        // user has already cashed out or has not placed a bet
         messageField.textContent = 'Wait for the next round';
         return;
     }
 
     if ((counter < randomStop)) {
-        const winnings = inputBox.value * counter; // Calculate winnings based on counter
-        calculatedBalanceAmount += winnings; // Add winnings to balance
+        const winnings = inputBox.value * counter; 
+        calculatedBalanceAmount += winnings;
         balanceAmount.textContent = calculatedBalanceAmount.toFixed(2).toString() + '€';
 
-        cashedOut = true; // set flag to indicate user has cashed out
+        cashedOut = true;
         placedBet = false;
         betButton.textContent = 'Bet';
         messageField.textContent = `Bet cashed out: ${winnings.toFixed(2)}`;
@@ -250,5 +232,3 @@ function cashOut() {
         messageField.textContent = "Can't cash out now";
     }
 }
-
-
